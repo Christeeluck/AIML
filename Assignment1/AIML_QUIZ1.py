@@ -57,3 +57,33 @@ print(speed)
 print(r2_score(y,mymodel(x)))
 
 #8 difference between lin and poly prediction
+
+
+#----------excel sheet section-------------
+
+
+#--------------------training section------
+#9 read in excel file and store the data in a dataframe
+
+#10 extract weight and volume fields and strore in X
+
+#11 extract co2 field and store in variable y
+
+#12 fit a lin reg model to variables X and y
+
+#13 predict value of co2 for volvo Xc70 with weight of 1746kg and vol of 2000cm
+#explain why value is difference from file values
+
+#14 find the ref coefficient between X and y and explain its meaning
+
+#15 find the R2 score and explain its meaning
+
+#16 scale the variables in X using the standardization method
+
+#17 repeat step 13 using scaled X var
+
+#18 explain any diff betwwen 13 and 16 
+
+#19 explain what is the train /test model and why its important
+
+#20 applying train/test method
