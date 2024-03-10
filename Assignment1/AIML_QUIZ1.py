@@ -57,7 +57,7 @@ print(speed)
 print(r2_score(y,mymodel(x)))
 
 #8 difference between lin and poly prediction
-
+#
 
 #----------excel sheet section-------------
 
