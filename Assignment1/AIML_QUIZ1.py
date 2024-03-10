@@ -51,6 +51,9 @@ plt.show()
 #6 predict speed of 13 year old car using 3rd degree polynomial
 speed=mymodel(13)
 print(speed)
+
+
 #7 estimate the r-squared value 
+print(r2_score(y,mymodel(x)))
 
 #8 difference between lin and poly prediction
