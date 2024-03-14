@@ -57,33 +57,75 @@ print(speed)
 print(r2_score(y,mymodel(x)))
 
 #8 difference between lin and poly prediction
-#
+
 
 #----------excel sheet section-------------
 
 
-#--------------------training section------
 #9 read in excel file and store the data in a dataframe
+dir_path = r"C:\Users\Admin\Desktop\compEng\Year 3\Semester2\AIML\AIML\Assignment1"
+file_name = "data1.csv"
+file_path = os.path.join(dir_path, file_name)
+
+# reading in the file as an object
+df = pd.read_csv(file_path)
 
 #10 extract weight and volume fields and strore in X
+X = df[["Weight","Volume"]]
 
 #11 extract co2 field and store in variable y
+y = df[["CO2"]]
+
 
 #12 fit a lin reg model to variables X and y
+linReg = linear_model.LinearRegression() 
+linReg.fit(X, y)
+
 
 #13 predict value of co2 for volvo Xc70 with weight of 1746kg and vol of 2000cm
-#explain why value is difference from file values
+predictedCO2 = linReg.predict([[1746, 2000]])
+
+
 
 #14 find the ref coefficient between X and y and explain its meaning
+print(linReg.coef_)
+
 
 #15 find the R2 score and explain its meaning
+print(linReg.score(X,y))
+
 
 #16 scale the variables in X using the standardization method
+scale = StandardScaler()
+scaledX = scale.fit_transform(X) 
+
 
 #17 repeat step 13 using scaled X var
+linRegScaled = linear_model.LinearRegression()
+linRegScaled.fit(scaledX, y)
+scaledValue = scale.transform([[1746, 2000]])
+scaledPredictedCO2 = linRegScaled.predict([scaledValue[0]])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #18 explain any diff betwwen 13 and 16 
 
 #19 explain what is the train /test model and why its important
 
 #20 applying train/test method
+
+#--------------------training section------
