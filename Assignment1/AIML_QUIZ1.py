@@ -111,3 +111,23 @@ scaledPredictedCO2 = linRegScaled.predict([scaledValue[0]])
 #20 applying train/test method
 
 #--------------------training section------
+#extract first 30 rows from dataframe
+trainx= df[["Weight","Volume"]].head(30)
+trainy=df["CO2"].head(30)
+
+#fit training data to linear model
+TrainlinReg = linear_model.LinearRegression() 
+TrainlinReg.fit(trainx, trainy)
+
+
+#predict value of co2 for volvo Xc70 with weight of 1746kg and vol of 2000cm
+Train_predictedCO2 = TrainlinReg.predict([[1746, 2000]])
+
+
+
+#find the ref coefficient between X and y and explain its meaning
+print(TrainlinReg.coef_)
+
+
+#find the R2 score and explain its meaning
+print(TrainlinReg.score(trainx,trainy))
