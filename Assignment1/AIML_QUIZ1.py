@@ -108,24 +108,6 @@ scaledPredictedCO2 = linRegScaled.predict([scaledValue[0]])
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#18 explain any diff betwwen 13 and 16 
-
-#19 explain what is the train /test model and why its important
-
 #20 applying train/test method
 
 #--------------------training section------
