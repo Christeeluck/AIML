@@ -1,0 +1,107 @@
+import matplotlib.pyplot as plt 
+from scipy import stats
+import numpy as np
+from sklearn.metrics import r2_score
+import pandas as pd
+import os
+from sklearn import linear_model
+from sklearn.preprocessing import StandardScaler
+
+
+#performing a scatter plot
+x = [5,7,8,7,2,17,2,9,4,11,12,9,6]
+y = [99,86,87,88,111,86,103,87,94,78,77,85,86]
+plt.scatter(x, y)
+plt.xlabel('age of Car')
+plt.ylabel('Speed of Car')
+plt.show()
+#Regression: The term regression is used when you try to find the relationship between variables.
+            # In Machine Learning, and in statistical modeling, that relationship is used to predict the outcome of future events.
+#Linear Regression: uses the relationship between the data-points to draw a straight line through all them.
+            #This line can be used to predict future values.          
+            #Python has methods for finding a relationship between data-points and to draw a line of linear regression.         
+slope, intercept, r, p, std_err = stats.linregress(x, y)
+Reg_LineY = np.array(x)*slope + intercept
+plt.scatter(x, y)
+plt.plot(x, Reg_LineY)#plot of new regression line
+plt.xlabel('age of Car')
+plt.ylabel('Speed of Car')
+plt.grid()
+plt.show()           
+# This relationship (coefficient of correlation) between the variables x & y- is called r.
+# The r value ranges from -1 to 1, where 0 means no relationship, and 1 (and -1) means 100% related           
+print(r)  
+#-0.76% means there is a good relationship (inversely proportional) between x and y values
+#Now we can use the information we have gathered to predict future values.
+#e.g. predict the speed of a 10 years old car.
+Car_Age = 10
+Speed_Predict = Car_Age*slope + intercept       
+print(Speed_Predict) 
+#--------------------------------------------
+#Bad Fit
+#--------------------------------------------
+x = [89,43,36,36,95,10,66,34,38,20,26,29,48,64,6,5,36,66,72,40]
+y = [21,46,3,35,67,95,53,72,58,10,26,34,90,33,38,20,56,2,47,15]
+slope, intercept, r, p, std_err = stats.linregress(x, y)
+Reg_LineY = np.array(x)*slope + intercept
+plt.scatter(x, y)
+plt.plot(x, Reg_LineY)
+plt.xlabel('age of Car')
+plt.ylabel('Speed of Car')
+plt.show()       
+print(r) 
+# poor value for r = 0.013
+# can try to eliiminate outliers
+#Polynomial Regression - mapping the data to a curve of n-degree
+
+
+x = [1,2,3,5,6,7,8,9,10,12,13,14,15,16,18,19,21,22]
+y = [100,90,80,60,60,55,60,65,70,70,75,76,78,79,90,99,99,100]
+n=3
+mymodel = np.poly1d(np.polyfit(x, y, n))
+#poly1d() used to help define the polynomial, polyfit helps to fit the data to it
+myline = np.linspace(1, 22, 100)
+#specify the x points for the polynomial line: 100 points between 1 and 22
+plt.scatter(x, y)
+plt.plot(myline, mymodel(myline))
+#mymodel(myline) is the y-points of the polynomial
+plt.xlabel('age of Car')
+plt.ylabel('Speed of Car')
+plt.grid()
+plt.show()
+# now predict the speed for a car that is 17 years old
+speed = mymodel(17)
+print(speed)
+#The relationship is measured with a value called the r-squared. r2
+#The r-squared value ranges from 0 to 1, where 0 means no relationship, and 1 means 100% related.
+print(r2_score(y, mymodel(x)))
+#r2 = 0.943, this means that there is good corellation
+# derivation of linear regression formula: https://math.stackexchange.com/questions/131590/derivation-of-the-formula-for-ordinary-least-squares-linear-regression
+#-------------------------------------------------------
+# importing excel file to work on now
+#-------------------------------------------------------
+dir_path = r"C:\Users\sookn\OneDrive\Desktop\utt\AIML3001"
+file_name = "data1.csv"
+file_path = os.path.join(dir_path, file_name)
+# reading in the file as an object
+df = pd.read_csv(file_path)
+# extracting data from the file
+X = df[["Weight","CO2"]]
+Y = df[["Volume"]]
+# fitting a linear model to the data
+linReg = linear_model.LinearRegression() 
+linReg.fit(X, Y)
+# using the model to predict volume given weight and C02
+predictedVol = linReg.predict([[1140, 105]])
+# examining the regression coefficient
+print(linReg.coef_)
+# examining the R2 score
+print(linReg.score(X,Y))
+# scaling the X values
+scale = StandardScaler()
+scaledX = scale.fit_transform(X)
+# performing the regression using scaled values
+linRegScaled = linear_model.LinearRegression()
+linRegScaled.fit(scaledX, Y)
+scaledValue = scale.transform([[1140, 105]])
+scaledPredictedVol = linRegScaled.predict([scaledValue[0]])
